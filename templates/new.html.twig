@@ -1,0 +1,116 @@
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:display=swap" rel="stylesheet">
+    <script src="script.js"></script>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="mapcss\style.css">
+        <link rel="stylesheet" href="theme\generalstyle.css">
+    {% endblock %}
+</head>
+
+<body>
+    <div class="bandeau">
+        <h2><a href="/Stands">🠔 Retour</a></h2>
+        <a href="/logout">Déconnexion</a>
+    </div>
+    <div class="carte_container">
+        <div class="horizontal_numbers">
+            <div class="carte_number">
+                <span>0</span>
+            </div>
+            <div class="carte_number">
+                <span>1</span>
+            </div>
+            <div class="carte_number">
+                <span>2</span>
+            </div>
+            <div class="carte_number">
+                <span>3</span>
+            </div>
+            <div class="carte_number">
+                <span>4</span>
+            </div>
+            <div class="carte_number">
+                <span>5</span>
+            </div>
+            <div class="carte_number">
+                <span>6</span>
+            </div>
+            <div class="carte_number">
+                <span>7</span>
+            </div>
+            <div class="carte_number">
+                <span>8</span>
+            </div>
+            <div class="carte_number">
+                <span>9</span>
+            </div>
+        </div>
+        <div class="vertical_numbers">
+            <div class="carte_number">
+                <span>0</span>
+            </div>
+            <div class="carte_number">
+                <span>1</span>
+            </div>
+            <div class="carte_number">
+                <span>2</span>
+            </div>
+            <div class="carte_number">
+                <span>3</span>
+            </div>
+            <div class="carte_number">
+                <span>4</span>
+            </div>
+        </div>
+
+        <div id="carte" style="grid-template-areas: {{ templateAreas }}">    
+            {% for stand in stands %}
+                <div class="stand stand{{ stand.id_stand }}" style="grid-area: stand{{ stand.id_stand }}">
+                    <span class="nom_stand">{{ stand.nom }}</span>
+                    {% if stand.exposant != null %}
+                    <span class="nom_exposant">{{ stand.exposant.raisonSociale }}</span>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        
+    </div>
+
+
+{{ form_start(standForm) }}
+
+    <table>
+        <tr>
+            <th colspan="2">Nouveau stand</th>
+        </tr>
+        <tr>
+            <td>Nom</td>
+            <td>{{ form_widget(standForm.nom) }}</td>
+        </tr>
+        <tr>
+            <td>Ouest</td>
+            <td>{{ form_widget(standForm.ouest) }}</td>
+        </tr>
+        <tr>
+            <td>Est</td>
+            <td>{{ form_widget(standForm.est) }}</td>
+        </tr>
+        <tr>
+            <td>Nord</td>
+            <td>{{ form_widget(standForm.nord) }}</td>
+        </tr>
+        <tr>
+            <td>Sud</td>
+            <td>{{ form_widget(standForm.sud) }}</td>
+        </tr>
+        
+    </table>
+    
+    <button class="button" type="submit" class="btn btn-primary">confirmer</button>
+{{ form_end(standForm) }}
+</body>

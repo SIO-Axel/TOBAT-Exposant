@@ -1,0 +1,120 @@
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:display=swap" rel="stylesheet">
+    <script src="script.js"></script>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="mapcss\style.css">
+        <link rel="stylesheet" href="theme\generalstyle.css">
+    {% endblock %}
+</head>
+
+<body>
+
+    <div class="bandeau">
+        <h2> Bonjour, {{app.user.idAdmin}} </h2>
+        <a href="/logout">Déconnexion</a>
+    </div>
+    
+
+    {# {{templateAreas}} #}
+    {# {{ dump(placement) }} #}
+
+    <div class="carte_container">
+        <div class="horizontal_numbers">
+            <div class="carte_number">
+                <span>0</span>
+            </div>
+            <div class="carte_number">
+                <span>1</span>
+            </div>
+            <div class="carte_number">
+                <span>2</span>
+            </div>
+            <div class="carte_number">
+                <span>3</span>
+            </div>
+            <div class="carte_number">
+                <span>4</span>
+            </div>
+            <div class="carte_number">
+                <span>5</span>
+            </div>
+            <div class="carte_number">
+                <span>6</span>
+            </div>
+            <div class="carte_number">
+                <span>7</span>
+            </div>
+            <div class="carte_number">
+                <span>8</span>
+            </div>
+            <div class="carte_number">
+                <span>9</span>
+            </div>
+        </div>
+        <div class="vertical_numbers">
+            <div class="carte_number">
+                <span>0</span>
+            </div>
+            <div class="carte_number">
+                <span>1</span>
+            </div>
+            <div class="carte_number">
+                <span>2</span>
+            </div>
+            <div class="carte_number">
+                <span>3</span>
+            </div>
+            <div class="carte_number">
+                <span>4</span>
+            </div>
+        </div>
+
+        <div id="carte" style="grid-template-areas: {{ templateAreas }}">    
+            {% for stand in stands %}
+                <div class="stand stand{{ stand.id_stand }}" style="grid-area: stand{{ stand.id_stand }}">
+                    <span class="nom_stand">{{ stand.nom }}</span>
+                    {% if stand.exposant != null %}
+                    <span class="nom_exposant">{{ stand.exposant.raisonSociale }}</span>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        
+    </div>
+
+    <br></br>
+
+    <a class="button", href="/new">Ajouter un Stand</a>
+    <br></br>
+
+    <table>
+        <tr>
+            <th>Stand</th>
+            <th>Superficie</th>
+            <th>Réservation</th>
+            <th>Supprimer</th>
+        </tr>
+
+        {% for stand in stands %}
+            <tr>
+                <td>{{ stand.nom }}</td>
+                <td>{{ stand.superficie }}</td>
+                {% if stand.exposant != null %}
+                    <td>{{ stand.exposant.raisonSociale }}</td>
+                {% else %}
+                      <td> </td>
+                {% endif %}
+                <td><a class="supprimer" href="/delete/{{ stand.id_stand }}">Supprimer</a></td>
+            </tr>
+        {% endfor %}
+        
+    </table>
+
+</body>
+
+{# {{ dump(stands) }} #}
